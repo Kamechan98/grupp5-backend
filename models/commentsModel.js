@@ -14,5 +14,5 @@ exports.addComment = async (req, res) => {
     { new: true }
   );
 
-  res.status(201).json({ caseId: caseId });
+  res.status(201).json(comment);
 };
