@@ -14,5 +14,5 @@ exports.addComment = async (req, res) => {
     { new: true }
   );
 
-  res.status(201).json(errand);
+  res.status(201).json({ caseId: caseId });
 };
