@@ -19,7 +19,36 @@ exports.createNewErrand = (req, res) => {
     })
     .catch(err => {
         res.status(500).json({
-            message: 'Could not create errand'
+            message: 'Could not create errand',
+            err: err.message
+        })
+    })
+}
+
+// READ
+
+exports.getErrands = (req, res) => {
+    errand.find()
+    .then(data => {
+        res.status(200).json(data)
+    })
+        .catch(err => {
+            res.status(500).json({
+                message: 'Could not find errand',
+                err: err.message
+        })
+    })
+}
+
+exports.getErrandById = (req, res) => {
+    errand.findById(req.params.id)
+    .then(data => {
+        res.status(200).json(data)
+    })
+        .catch(err => {
+            res.status(500).json({
+                message: 'Could not find specific errand',
+                err: err.message
         })
     })
 }
