@@ -57,19 +57,52 @@ exports.getErrandById = (req, res) => {
     });
 };
 
-exports.updateStatusById = (req, res) => {
+// exports.updateStatusById = (req, res) => {
 
-  const { status } = req.body
+//   const { status } = req.body
 
 
-  errand.findByIdAndUpdate(req.params.id, { status }, { new: true })
-    .then(data => {
-      res.status(200).json(data)
-    })
-    .catch(err => {
-      res.status(500).json({
-        message: 'Could not find and update errand',
-        err: err.message
-      })
-    })
-}
+//   errand.findByIdAndUpdate(req.params.id, { status }, { new: true })
+//     .then(data => {
+//       res.status(200).json(data)
+//     })
+//     .catch(err => {
+//       res.status(500).json({
+//         message: 'Could not find and update errand',
+//         err: err.message
+//       })
+//     })
+// }
+
+exports.updateStatusById = async (req, res) => {
+  const id = req.params.id;
+  const { statusId } = req.body;
+
+  if (statusId == "1") {
+    const newErrand = await errand.findByIdAndUpdate(
+      id,
+      { status: { statusId: 1, statusName: "Ej Påbörjad" } },
+      { new: true }
+    );
+
+    res.status(201).json(newErrand);
+  }
+
+  if (statusId == "2") {
+    const newErrand = await errand.findByIdAndUpdate(
+      id,
+      { status: { statusId: 2, statusName: "Pågående" } },
+      { new: true }
+    );
+    res.status(201).json(newErrand);
+  }
+
+  if (statusId == "3") {
+    const newErrand = await errand.findByIdAndUpdate(
+      id,
+      { status: { statusId: 3, statusName: "Avklarad" } },
+      { new: true }
+    );
+    res.status(201).json(newErrand);
+  }
+};
