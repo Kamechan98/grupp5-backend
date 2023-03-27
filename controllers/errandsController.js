@@ -8,5 +8,7 @@ router.get('/', errandsModel.getErrands)
 
 router.get('/:id', errandsModel.getErrandById)
 
+router.put('/:id', errandsModel.updateStatusById)
+
 
 module.exports = router
