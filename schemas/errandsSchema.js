@@ -11,6 +11,4 @@ const errandSchema = mongoose.Schema(
   { timestamp: true }
 );
 
-const Errand = mongoose.model("Errand", errandSchema);
-
-module.exports = Errand;
+module.exports = mongoose.model("Errand", errandSchema);
