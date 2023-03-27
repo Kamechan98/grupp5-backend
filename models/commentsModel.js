@@ -6,7 +6,7 @@ exports.addComment = async (req, res) => {
 
   const comment = await Comment.create({ caseId, email, message });
 
-  const errand = await Errand.findByIdAndUpdate(
+  await Errand.findByIdAndUpdate(
     caseId,
     {
       $push: { comments: comment._id },
