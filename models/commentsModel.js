@@ -1,14 +1,18 @@
 const Errand = require("../schemas/errandsSchema");
-const Comment = require("../schemas/commentSchema");
+const Comment = require("../schemas/commentsSchema");
 
 exports.addComment = async (req, res) => {
   const { caseId, email, message } = req.body;
 
-  const comment = Comment.create({ caseId, email, message });
+  const comment = await Comment.create({ caseId, email, message });
 
-  const errand = await Errand.findByIdAndUpdate(caseId, {
-    $push: { comments: comment._id },
-  });
+  const errand = await Errand.findByIdAndUpdate(
+    caseId,
+    {
+      $push: { comments: comment._id },
+    },
+    { new: true }
+  );
 
-  res.status(200).json(errand);
+  res.status(201).json(errand);
 };
