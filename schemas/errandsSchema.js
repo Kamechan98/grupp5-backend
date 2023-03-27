@@ -6,6 +6,7 @@ const errandSchema = mongoose.Schema(
     subject: { type: String, required: true },
     message: { type: String, required: true },
     status: { type: Number, default: 1 },
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   },
   { timestamp: true }
 );
