@@ -60,7 +60,19 @@ exports.getErrandById = (req, res) => {
 // exports.updateStatusById = (req, res) => {
 
 //   const { status } = req.body
+exports.updateStatusById = async (req, res) => {
+  const id = req.params.id;
+  const { statusId } = req.body;
 
+  if (statusId == "1") {
+    const newErrand = await errand.findByIdAndUpdate(
+      id,
+      { status: { statusId: 1, statusName: "Ej Påbörjad" } },
+      { new: true }
+    );
+
+    res.status(201).json(newErrand);
+  }
 
 //   errand.findByIdAndUpdate(req.params.id, { status }, { new: true })
 //     .then(data => {
@@ -106,3 +118,21 @@ exports.updateStatusById = async (req, res) => {
       res.status(201).json(newErrand);
     }
   };
+  if (statusId == "2") {
+    const newErrand = await errand.findByIdAndUpdate(
+      id,
+      { status: { statusId: 2, statusName: "Pågående" } },
+      { new: true }
+    );
+    res.status(201).json(newErrand);
+  }
+
+  if (statusId == "3") {
+    const newErrand = await errand.findByIdAndUpdate(
+      id,
+      { status: { statusId: 3, statusName: "Avklarad" } },
+      { new: true }
+    );
+    res.status(201).json(newErrand);
+  }
+};
