@@ -31,6 +31,7 @@ exports.getErrands = (req, res) => {
   errand
     .find()
     .populate("comments")
+    .populate("status")
     .then((data) => {
       res.status(200).json(data);
     })
@@ -46,6 +47,7 @@ exports.getErrandById = (req, res) => {
   errand
     .findById(req.params.id)
     .populate("comments")
+    .populate("status")
     .then((data) => {
       res.status(200).json(data);
     })
@@ -61,31 +63,14 @@ exports.updateStatusById = async (req, res) => {
   const id = req.params.id;
   const { statusId } = req.body;
 
-  if (statusId == "1") {
-    const newErrand = await errand.findByIdAndUpdate(
-      id,
-      { status: { statusId: 1, statusName: "Ej Påbörjad" } },
-      { new: true }
-    );
+  const newErrand = await errand.findByIdAndUpdate(
+    id,
+    {
+      status: statusId,
+    },
+    { new: true }
+  );
+  await newErrand.populate("status");
 
-    res.status(201).json(newErrand);
-  }
-
-  if (statusId == "2") {
-    const newErrand = await errand.findByIdAndUpdate(
-      id,
-      { status: { statusId: 2, statusName: "Pågående" } },
-      { new: true }
-    );
-    res.status(201).json(newErrand);
-  }
-
-  if (statusId == "3") {
-    const newErrand = await errand.findByIdAndUpdate(
-      id,
-      { status: { statusId: 3, statusName: "Avklarad" } },
-      { new: true }
-    );
-    res.status(201).json(newErrand);
-  }
+  res.status(201).json(newErrand);
 };
